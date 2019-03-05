@@ -12,9 +12,9 @@ function [r_indiv,r_tot,radon_transform] = rFactor(recon,stack,angles)
     %   radon_transform: tilt series stack made from radon slices
     
     %PARAMETERS:
-    axis=3;         %axis along which the radon transform will be done (X=1, Y=2, Z=3)
+    axis=2;         %axis along which the radon transform will be done (X=1, Y=2, Z=3)
                     %usually, SIRT is along Z and GENFIRE is along Y
-    direction=1;    %1 for SIRT, -1 for GENFIRE
+    direction=-1;    %1 for SIRT, -1 for GENFIRE
     support=double(makeCircle(size(stack,1)));
                     %if you used a support in GENFIRE, you should replicate
                     %that here. Otherwise, just use a square array of 1s
@@ -47,7 +47,7 @@ function [r_indiv,r_tot,radon_transform] = rFactor(recon,stack,angles)
     radon_aligned=zeros(size(stack,1),size(stack,2),size(stack,3));
     r_indiv=zeros(1,size(stack,3));
     for i=1:size(stack,3)
-        radon_aligned(:,:,i)=alignStack(double(stack(:,:,i)),radon_transform(:,:,i),support);
+        radon_aligned(:,:,i)=alignImg(double(stack(:,:,i)),radon_transform(:,:,i),support);
         if savimg
             saveas(gcf,strcat(filename,num2str(i),'.png'));
         end

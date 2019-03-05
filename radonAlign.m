@@ -11,9 +11,9 @@ function [stack_aligned] = radonAlign(recon,stack,angles)
     %   input reconstruction
     
     %PARAMETERS:
-    axis=3;         %axis along which the radon transform will be done (X=1, Y=2, Z=3)
+    axis=2;         %axis along which the radon transform will be done (X=1, Y=2, Z=3)
                     %usually, SIRT is along Z and GENFIRE is along Y
-    direction=1;    %1 for SIRT, -1 for GENFIRE
+    direction=-1;    %1 for SIRT, -1 for GENFIRE
     support=double(makeCircle(size(stack,1)));
                     %if you used a support in GENFIRE, you should replicate
                     %that here. Otherwise, just use a square array of 1s
@@ -41,7 +41,7 @@ function [stack_aligned] = radonAlign(recon,stack,angles)
     %align each slice
     stack_aligned=zeros(size(stack,1),size(stack,2),size(stack,3));
     for i=1:size(stack,3)
-        stack_aligned(:,:,i)=alignStack(radon_transform(:,:,i),double(stack(:,:,i)),support);
+        stack_aligned(:,:,i)=alignImg(radon_transform(:,:,i),double(stack(:,:,i)),support);
         %saveas(gcf,strcat('file',num2str(i),'.png'));
     end
 end
