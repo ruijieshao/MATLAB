@@ -8,8 +8,8 @@ function [aligned] = alignCOM(stack)
     %   aligned: aligned stack
     
     %PARAMETERS:
-    savimg=false;   %if true, it saves a comparison image for each slice
-    filename='alignCOM';
+    savimg=true;   %if true, it saves a comparison image for each slice
+    filename='St3_';
                     %file name of the saved images
         
     aligned=stack;
