@@ -1,4 +1,4 @@
-function [stack_aligned] = radonAlign(recon,stack,angles)
+function [stack_aligned] = alignRadon(recon,stack,angles)
     %aligns a tilt series to the radon transform of its reconstruction
     
     %INPUTS:
@@ -15,6 +15,7 @@ function [stack_aligned] = radonAlign(recon,stack,angles)
                     %usually, SIRT is along Z and GENFIRE is along Y
     direction=-1;    %1 for SIRT, -1 for GENFIRE
     support=double(makeCircle(size(stack,1)));
+    %support=ones(size(stack,1),size(stack,2));
                     %if you used a support in GENFIRE, you should replicate
                     %that here. Otherwise, just use a square array of 1s
     
@@ -38,10 +39,10 @@ function [stack_aligned] = radonAlign(recon,stack,angles)
         radon_transform=radon_transform(:,1:end-1,:);
     end
     
-    %align each slice
+    %align each projection
     stack_aligned=zeros(size(stack,1),size(stack,2),size(stack,3));
     for i=1:size(stack,3)
         stack_aligned(:,:,i)=alignImg(radon_transform(:,:,i),double(stack(:,:,i)),support);
-        %saveas(gcf,strcat('file',num2str(i),'.png'));
+        saveas(gcf,strcat('file',num2str(i),'.png'));
     end
 end

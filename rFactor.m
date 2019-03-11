@@ -1,4 +1,4 @@
-function [r_indiv,r_tot,radon_transform] = rFactor(recon,stack,angles)
+function [r_indiv,r_tot] = rFactor(recon,stack,angles)
     %calculates the r-factor for a given tilt-series and its reconstruction
     
     %INPUTS:
@@ -9,7 +9,6 @@ function [r_indiv,r_tot,radon_transform] = rFactor(recon,stack,angles)
     %OUTPUTS:
     %   r_indiv: individual r-factor values for each slice in the stack
     %   r_tot: total average r-factor value of all slices
-    %   radon_transform: tilt series stack made from radon slices
     
     %PARAMETERS:
     axis=2;         %axis along which the radon transform will be done (X=1, Y=2, Z=3)
@@ -43,7 +42,7 @@ function [r_indiv,r_tot,radon_transform] = rFactor(recon,stack,angles)
         radon_transform=radon_transform(:,1:end-1,:);
     end
     
-    %align each slice, then normalize and compare r-factors
+    %align each projection, then normalize and compare r-factors
     radon_aligned=zeros(size(stack,1),size(stack,2),size(stack,3));
     r_indiv=zeros(1,size(stack,3));
     for i=1:size(stack,3)
