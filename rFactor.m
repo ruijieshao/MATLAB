@@ -1,4 +1,4 @@
-function [r_indiv,r_tot] = rFactor(recon,stack,angles)
+function [r_indiv,r_tot]=rFactor(recon,stack,angles)
     %calculates the r-factor for a given tilt-series and its reconstruction
     
     %INPUTS:

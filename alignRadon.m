@@ -1,4 +1,4 @@
-function [stack_aligned] = alignRadon(recon,stack,angles)
+function stack_aligned=alignRadon(recon,stack,angles)
     %aligns a tilt series to the radon transform of its reconstruction
     
     %INPUTS:
@@ -43,6 +43,6 @@ function [stack_aligned] = alignRadon(recon,stack,angles)
     stack_aligned=zeros(size(stack,1),size(stack,2),size(stack,3));
     for i=1:size(stack,3)
         stack_aligned(:,:,i)=alignImg(radon_transform(:,:,i),double(stack(:,:,i)),support);
-        saveas(gcf,strcat('file',num2str(i),'.png'));
+        %saveas(gcf,strcat('alignRadon',num2str(i),'.png'));
     end
 end

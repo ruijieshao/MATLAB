@@ -1,4 +1,4 @@
-function [aligned] = alignCOM(stack,alignment)
+function aligned=alignCOM(stack,alignment)
     %aligns a stack by calculating their center of masses
     
     %INPUTS:
@@ -7,16 +7,11 @@ function [aligned] = alignCOM(stack,alignment)
     %   for COM alignment (optional)
     %
     %   these two should be the same data with different thresholding.
-    %   stack thresholded for preservation of important data and alignment
-    %   thresholded for minimal background
+    %   stack thresholded for preservation of data and alignment
+    %   thresholded for total background removal
 
     %OUTPUTS:
     %   aligned: aligned stack
-    
-    %PARAMETERS:
-    savimg=true;   %if true, it saves a comparison image for each slice
-    filename='AlignCOM';
-                    %file name of the saved images
                     
     if nargin==1
     	alignment=stack;
@@ -30,18 +25,21 @@ function [aligned] = alignCOM(stack,alignment)
         wx=x.*align;
         wy=y.*align;
         xcom=sum(wx(:))/sum(align(:));
-        ycom=sum(wy(:))/sum(align(:));        
+        ycom=sum(wy(:))/sum(align(:));
 
         %shift image to center of mass
         xoffset=round(ceil(size(align,1)/2)-xcom);
         yoffset=round(ceil(size(align,2)/2)-ycom);
-        aligned(:,:,i)=circshift(stack(:,:,i),[yoffset xoffset]);
+        %aligned(:,:,i)=circshift(stack(:,:,i),[yoffset xoffset]);
+        aligned(:,:,i)=imtranslate(stack(:,:,i),[xoffset yoffset]);
+        
+        %I can't think of a good reason to use circshift over imtranslate
+        %unless you're going to align again afterwards and need to keep all
+        %the data for future use but if you do use it, the x and y are 
+        %switched from each other
         
         %create final image
-        
-        imshowpair(stack(:,:,i),aligned(:,:,i),'montage')
-        if savimg
-            saveas(gcf,strcat(filename,num2str(i),'.png'));
-        end
+        %imshowpair(stack(:,:,i),aligned(:,:,i),'montage')
+        %saveas(gcf,strcat('alignCOM',num2str(i),'.png'));
     end
 end

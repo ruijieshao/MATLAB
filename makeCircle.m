@@ -1,4 +1,4 @@
-function [circ] = makeCircle(d)
+function [circ]=makeCircle(d)
     M=zeros(d);
     M(d/2,d/2)=1;
     R=bwdist(M);

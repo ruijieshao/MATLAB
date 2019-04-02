@@ -1,4 +1,4 @@
-function [rt] = radon3(obj,axis,range)
+function [rt]=radon3(obj,axis,range)
     %performs a radon transform on a 3D object
     
     %INPUTS:

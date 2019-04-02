@@ -1,4 +1,4 @@
-function [stack] = bkgSubLinear(stack)
+function [stack]=bkgSubLinear(stack)
     %performs a linear background subtraction on the input stack
 
     stack = mat2gray(stack);

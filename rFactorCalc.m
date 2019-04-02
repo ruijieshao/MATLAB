@@ -1,4 +1,4 @@
-function [rf] = rFactorCalc(imeas,icalc,support)
+function [rf]=rFactorCalc(imeas,icalc,support)
     %calculates the r-factor between a measured and a calculated image
     
     %INPUTS:

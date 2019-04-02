@@ -1,4 +1,4 @@
-function [shifted] = alignImg(img1,img2,support)
+function [shifted]=alignImg(img1,img2,support)
     %aligns img2 to img1 using cross-correlation
     
     %INPUTS:
@@ -17,7 +17,7 @@ function [shifted] = alignImg(img1,img2,support)
     yoffset=round(ypeak-size(img2,1));
     
     %create final image
-    shifted=circshift(img2,[yoffset xoffset]);
-    %imshowpair(img1,shifted,'montage')
-    montage([img2 img1 shifted]);
+    %shifted=circshift(img2,[yoffset xoffset]);
+    shifted=imtranslate(img2,[xoffset yoffset]);
+    imshowpair(img1,shifted,'montage')
 end

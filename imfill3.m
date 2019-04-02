@@ -1,4 +1,4 @@
-function A = imfill3(A)
+function A=imfill3(A)
     %fills in holes in a 3D array by performing imfill in 3 dimensions
     
     for i=1:3

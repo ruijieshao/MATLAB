@@ -4,7 +4,12 @@ function [porosity,surfacearea,sav]=surfProps(obj,thresh)
     
     %INPUTS:
     %   obj: 3D object
-    %   thresh: threshold value for binary segmentation
+    %   thresh: optional threshold value for basic binary segmentation
+    %           if no value is provided, threshold will automatically be
+    %           determined using minimum error thresholding
+    
+    %           J. Kittler and J. Illingworth, "Minimum Error Thresholding,"
+    %           Pattern Recognition 19, 41-47 (1986)
     
     %OUTPUTS:
     %   porosity: percent of object that is void
@@ -13,7 +18,8 @@ function [porosity,surfacearea,sav]=surfProps(obj,thresh)
     
     %segment and threshold
     if nargin==1
-    	A=logical(imsegkmeans3(obj,2)-1);
+        [thresh,~]=kittlerMinimimErrorThresholding(255*mat2gray(obj));
+    	A=mat2gray(obj)>(thresh/255);
     else
         A=mat2gray(obj)>thresh;
     end
