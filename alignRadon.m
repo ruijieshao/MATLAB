@@ -11,16 +11,16 @@ function stack_aligned=alignRadon(recon,stack,angles)
     %   input reconstruction
     
     %PARAMETERS:
-    axis=2;         %axis along which the radon transform will be done (X=1, Y=2, Z=3)
+    axis=3;         %axis along which the radon transform will be done (X=1, Y=2, Z=3)
                     %usually, SIRT is along Z and GENFIRE is along Y
-    direction=-1;    %1 for SIRT, -1 for GENFIRE
+    direction=1;    %1 for SIRT, -1 for GENFIRE
     support=double(makeCircle(size(stack,1)));
     %support=ones(size(stack,1),size(stack,2));
                     %if you used a support in GENFIRE, you should replicate
                     %that here. Otherwise, just use a square array of 1s
     
     %perform the radon transform
-    radon_transform=radon3(recon,axis,direction*(angles-90));
+    radon_transform=radon3(recon,axis,direction*(angles+90));%YOU MAY NEED TO PLAY WITH THIS SINCE IT'S NOT ALWAYS AS DESCRIBED EARLIER
     radon_size=size(radon_transform);
     
     %crop into center of radon transform

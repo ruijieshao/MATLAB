@@ -9,7 +9,7 @@ function [shifted]=alignImg(img1,img2,support)
     %   shifted: shifted img2
         
     %normalize and cross-correlate matrices
-    c=normxcorr2(support.*mat2gray(img2),support.*mat2gray(img1));
+    c=normxcorr2(support.*normImg(img2),support.*normImg(img1));
     
     %calculate point of highest cross correlation
     [ypeak, xpeak]=find(c==max(c(:)));
@@ -19,5 +19,5 @@ function [shifted]=alignImg(img1,img2,support)
     %create final image
     %shifted=circshift(img2,[yoffset xoffset]);
     shifted=imtranslate(img2,[xoffset yoffset]);
-    imshowpair(img1,shifted,'montage')
+    %imshowpair(img1,shifted,'montage')
 end

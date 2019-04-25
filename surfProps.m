@@ -17,9 +17,9 @@ function [porosity,surfacearea,sav]=surfProps(obj,thresh)
     %   sav: surface area to volume ratio in inverse pixels
     
     %segment and threshold
+    obj=normImg(obj);
     if nargin==1
-        [thresh,~]=kittlerMinimimErrorThresholding(255*mat2gray(obj));
-    	A=mat2gray(obj)>(thresh/255);
+        A=imbinarize(obj,graythresh(obj));
     else
         A=mat2gray(obj)>thresh;
     end
